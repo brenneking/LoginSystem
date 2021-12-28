@@ -1,0 +1,189 @@
+Index: logins.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/logins.txt b/logins.txt
+new file mode 100644
+--- /dev/null	(date 1640723207980)
++++ b/logins.txt	(date 1640723207980)
+@@ -0,0 +1,6 @@
++Candace
++Deez
++Phillip
++Benjamin
++ddf
++dfdfs
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1640715092164)
++++ b/.idea/.gitignore	(date 1640715092164)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: login.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/login.c b/login.c
+--- a/login.c	(revision 1db69d249a4e1e84918e5ffa81529ce2adfe6155)
++++ b/login.c	(date 1640723589547)
+@@ -1,1 +1,78 @@
++#include <stdlib.h>
++#include <stdio.h>
++#include <string.h>
++
++void loginPage(char *username, char *password) {
++    printf("Enter username:");
++    scanf("%s", username);
++    printf( "Enter password:");
++    scanf("%s", password);
+ 
++}
++
++void saveLogin(char *username, char *password) {
++    FILE *fp = fopen("C:\\Users\\Brecken Enneking\\CLionProjects\\LoginSystem\\logins.txt", "a");
++    if (fp == NULL) {
++        printf("%s", "cannot open file");
++        exit(1);
++    }
++
++    fputs( username, fp);
++    fputs("\n", fp);
++    fputs(password, fp);
++    fputs("\n", fp);
++    fclose(fp);
++}
++
++void checkLogin(char *username, char *password) {
++    FILE *fp = fopen("INSERT FILE PATH HERE", "r");
++    if (fp == NULL) {
++        printf("%s", "cannot open file");
++        exit(1);
++    }
++    int nextLine;
++    int cntr = 0;
++    char line[40];
++    while (fscanf(fp, "%s\n", line) != EOF) {
++        cntr++;
++        if (strcmp(line, username) == 0) {
++
++            if (cntr % 2 != 0) {
++                nextLine = 1;
++                continue;
++            }
++        }
++        if (strcmp(line, password) == 0) {
++            if (nextLine == 1) {
++                printf("%s", "Login successful");
++                exit(1);
++            }
++        }
++        nextLine = 0;
++
++    }
++    fclose(fp);
++    char response;
++    printf(  "Could not find login. Would you like to create an account? (Y/N): \n");
++    scanf("\n%c", &response);
++    if (response == 'Y' || response == 'y') {
++        saveLogin(username, password);
++        printf("%s", "Account created");
++    }
++    else {
++        printf("%s", "Try again\n");
++        loginPage(username, password);
++        checkLogin(username, password);
++    }
++
++
++}
++
++int main(void) {
++    char username[40];
++    char password[40];
++    loginPage(username, password);
++    checkLogin(username, password);
++    //saveLogin(username, password);
++    return 0;
++}
+Index: CMakeLists.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+new file mode 100644
+--- /dev/null	(date 1640715107270)
++++ b/CMakeLists.txt	(date 1640715107270)
+@@ -0,0 +1,7 @@
++cmake_minimum_required(VERSION 3.21)
++project(LoginSystem C)
++
++set(CMAKE_C_STANDARD 11)
++
++add_executable(LoginSystem
++        login.c)
+Index: .idea/LoginSystem.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/LoginSystem.iml b/.idea/LoginSystem.iml
+new file mode 100644
+--- /dev/null	(date 1640715140247)
++++ b/.idea/LoginSystem.iml	(date 1640715140247)
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module classpath="CMake" type="CPP_MODULE" version="4" />
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1640715084740)
++++ b/.idea/modules.xml	(date 1640715084740)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/LoginSystem.iml" filepath="$PROJECT_DIR$/.idea/LoginSystem.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1640715084752)
++++ b/.idea/vcs.xml	(date 1640715084752)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
