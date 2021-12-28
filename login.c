@@ -73,6 +73,5 @@ int main(void) {
     char password[40];
     loginPage(username, password);
     checkLogin(username, password);
-    saveLogin(username, password);
     return 0;
 }
